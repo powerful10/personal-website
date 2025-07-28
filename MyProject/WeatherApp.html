@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #4f8ef7 0%, #70e1f5 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background: rgba(255,255,255,0.95);
+            padding: 36px 32px 32px 32px;
+            border-radius: 22px;
+            max-width: 370px;
+            margin: 60px auto;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+            text-align: center;
+            position: relative;
+        }
+        .weather-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 18px auto;
+            display: none;
+        }
+        h2 {
+            margin-bottom: 10px;
+            color: #2563eb;
+            letter-spacing: 1px;
+            font-size: 2.1rem;
+            font-weight: 600;
+        }
+        .search-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 12px 14px;
+            border: 1.5px solid #bdbdbd;
+            border-radius: 8px;
+            font-size: 17px;
+            outline: none;
+            transition: border 0.2s;
+            background: #f7fafd;
+        }
+        input[type="text"]:focus {
+            border: 1.5px solid #2563eb;
+        }
+        button {
+            padding: 12px 20px;
+            background: linear-gradient(90deg, #2563eb 60%, #4f8ef7 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            cursor: pointer;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(79,142,247,0.08);
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #1746a2 60%, #2563eb 100%);
+        }
+        .result {
+            margin-top: 24px;
+            font-size: 18px;
+            color: #222;
+            min-height: 90px;
+            background: #f7fafd;
+            border-radius: 12px;
+            padding: 18px 0 10px 0;
+            box-shadow: 0 2px 8px rgba(79,142,247,0.06);
+        }
+        .result strong {
+            font-size: 22px;
+            color: #2563eb;
+            font-weight: 600;
+        }
+        .temp {
+            font-size: 38px;
+            font-weight: 700;
+            color: #1746a2;
+            margin: 10px 0 6px 0;
+        }
+        .desc {
+            font-size: 18px;
+            color: #2563eb;
+            margin-bottom: 8px;
+            text-transform: capitalize;
+        }
+        .details {
+            font-size: 16px;
+            color: #555;
+        }
+        @media (max-width: 500px) {
+            .container {
+                max-width: 97vw;
+                padding: 18px 4vw;
+            }
+            .search-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+            input[type="text"], button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Weather Dashboard</h2>
+        <div class="search-bar">
+            <input type="text" id="cityInput" placeholder="Enter city name" />
+            <button onclick="getWeather()">Get Weather</button>
+        </div>
+        <img class="weather-icon" id="weatherIcon" src="" alt="Weather Icon" />
+        <div class="result" id="weatherResult"></div>
+    </div>
+    <script>
+        const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY'; // Replace with your OpenWeatherMap API key
+
+        function getWeather() {
+            const city = document.getElementById('cityInput').value.trim();
+            const resultDiv = document.getElementById('weatherResult');
+            const iconImg = document.getElementById('weatherIcon');
+            iconImg.style.display = 'none';
+            iconImg.src = '';
+            if (!city) {
+                resultDiv.innerHTML = '<span style="color:red;">Please enter a city name.</span>';
+                return;
+            }
+            resultDiv.textContent = 'Loading...';
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`)
+                .then(response => {
+                    if (!response.ok) throw new Error('City not found');
+                    return response.json();
+                })
+                .then(data => {
+                    const temp = Math.round(data.main.temp);
+                    const humidity = data.main.humidity;
+                    const condition = data.weather[0].description;
+                    const icon = data.weather[0].icon;
+                    const cityName = data.name;
+                    const country = data.sys.country;
+                    iconImg.src = `https://openweathermap.org/img/wn/${icon}@4x.png`;
+                    iconImg.style.display = 'block';
+                    resultDiv.innerHTML = `
+                        <strong>${cityName}, ${country}</strong>
+                        <div class="temp">${temp}°C</div>
+                        <div class="desc">${condition}</div>
+                        <div class="details">Humidity: ${humidity}%</div>
+                    `;
+                })
+                .catch(() => {
+                    resultDiv.innerHTML = '<span style="color:red;">City not found or API error.</span>';
+                });
+        }
+    </script>
+</body>
+</html>

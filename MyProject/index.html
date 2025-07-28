@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal Website</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Personal Website</h1>
+    </header>
+    <main>
+        <section>
+            <h2>About Me</h2>
+            <div class="about-me-chatgpt">
+                <div id="about-me-typewriter"></div>
+            </div>
+            <style>
+            .about-me-chatgpt {
+                font-size: 1.5rem;
+                line-height: 2;
+                max-width: 700px;
+                margin: 40px auto;
+                background: #f7f7f8;
+                border-radius: 16px;
+                padding: 40px 36px;
+                box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+                color: #222;
+                font-family: 'Segoe UI', 'Arial', sans-serif;
+                border: 1px solid #ececf1;
+                position: relative;
+            }
+            .about-me-chatgpt:before {
+                content: "";
+                position: absolute;
+                left: 24px;
+                top: 24px;
+                width: 36px;
+                height: 36px;
+                background: url('https://chat.openai.com/favicon.ico') no-repeat center/cover;
+                border-radius: 50%;
+                opacity: 0.7;
+            }
+            .about-me-chatgpt strong {
+                color: #10a37f;
+            }
+            .about-me-chatgpt ul {
+                margin: 18px 0 18px 30px;
+                padding: 0;
+                font-size: 1.1em;
+            }
+            .about-me-chatgpt li {
+                margin-bottom: 10px;
+            }
+            #about-me-typewriter {
+                min-height: 320px;
+                white-space: pre-line;
+                border-right: .15em solid #10a37f;
+                animation: blink-caret .75s step-end infinite;
+                font-size: 1.5rem;
+            }
+            @keyframes blink-caret {
+                from, to { border-color: transparent }
+                50% { border-color: #10a37f; }
+            }
+            </style>
+            <script>
+            // ChatGPT-style typewriter effect for About Me
+            document.addEventListener("DOMContentLoaded", function() {
+                const aboutMeText = `
+            <strong>Hello! I’m Oybek Abdullayev.</strong>
+
+            • I love building things—especially websites, bots, and mobile games.
+            • Currently exploring universities and working on real-world projects (sometimes earning a little extra cash 💸).
+            • Passionate about web development, AI, and making life easier with automation.
+            • Enjoy creating smart Telegram bots for companies and turning ideas into useful tools.
+
+            This site is where I share my work, connect with others, and find new opportunities.
+
+            If you’re interested in collaborating or need something built, feel free to reach out!
+
+            <strong>Let’s build something great together. 🚀</strong>
+                `.trim();
+
+                const el = document.getElementById('about-me-typewriter');
+                let i = 0;
+                function type() {
+                    if (i < aboutMeText.length) {
+                        // Handle HTML tags
+                        if (aboutMeText[i] === '<') {
+                            const close = aboutMeText.indexOf('>', i);
+                            el.innerHTML += aboutMeText.slice(i, close + 1);
+                            i = close + 1;
+                        } else {
+                            el.innerHTML += aboutMeText[i] === '\n' ? '<br>' : aboutMeText[i];
+                            i++;
+                        }
+                        setTimeout(type, 16); // ChatGPT-like speed
+                    } else {
+                        el.style.borderRight = 'none';
+                    }
+                }
+                type();
+            });
+            </script>
+        </section>
+        <section>
+            <h2 class="projects-title">
+            <span class="projects-icon">💡</span>
+            Sample Projects
+            </h2>
+            <div class="projects-list">
+            <div class="project">
+                <h3>1. Simple Calculator</h3>
+                <p>A basic web calculator built with HTML, CSS, and JavaScript. It can perform addition, subtraction, multiplication, and division. <a href="/projects/simplecalculator.html">Link</a></p>
+            </div>
+            <div class="project">
+                <h3>2. To-Do List App</h3>
+                <p>An interactive to-do list where users can add, mark as complete, and remove tasks. Uses local storage to save tasks between sessions. <a href="/projects/ToDoListApp.html">Link</a></p>
+            </div>
+            <div class="project">
+                <h3>3. Weather Dashboard</h3>
+                <p>A weather dashboard that fetches real-time weather data from a public API based on user input. Displays temperature, humidity, and weather conditions for any city (This website will not work because it needs API key to be able to give real time weather conditions. It is only available when you pay). <a href="/projects/WeatherApp.html">Link</a></p>
+            </div>
+            <div class="project">
+                <h3>4. Snake Game   </h3>
+                <p>Traditional snake game with a pretty good design. <a href="/projects/snake.py">Link</a></p>
+            </div>
+            <div class="project">
+                <h3>AI bot</h3>
+                <p>This bot is not a simple bot. It is connected with AI to response in the best way possible. This bot can be a part of company and help people to give information about the company, its products, services they offer, etc. You can try it out and maybe purchase by contacting me on Telegram</p>
+            </div>
+
+            </div>
+            <style>
+            .projects-title {
+            display: flex;
+            align-items: center;
+            font-size: 2rem;
+            color: #10a37f;
+            margin-bottom: 18px;
+            letter-spacing: 1px;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            gap: 10px;
+            }
+            .projects-icon {
+            font-size: 1.6em;
+            vertical-align: middle;
+            }
+            .projects-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin: 32px 0;
+            }
+            .project {
+            background: linear-gradient(90deg, #f4f8fb 80%, #e9f7f3 100%);
+            border-radius: 14px;
+            padding: 28px 24px;
+            box-shadow: 0 4px 18px rgba(16,163,127,0.08);
+            border-left: 5px solid #10a37f;
+            transition: transform 0.15s, box-shadow 0.15s;
+            }
+            .project:hover {
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 8px 32px rgba(16,163,127,0.13);
+            }
+            .project h3 {
+            margin-top: 0;
+            color: #10a37f;
+            font-size: 1.25em;
+            margin-bottom: 8px;
+            }
+            .project p {
+            margin: 0;
+            font-size: 1.08em;
+            color: #333;
+            }
+            .project a {
+            color: #10a37f;
+            text-decoration: underline;
+            font-weight: 500;
+            transition: color 0.15s;
+            }
+            .project a:hover {
+            color: #0e8c6b;
+            }
+            .icon{
+                margin: 10px;
+                color: #333;
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+            .icon:hover{
+                    color: #1da1f2; 
+
+            }
+            </style>
+        </section>
+        <section id="contact">
+            <h2>Contact</h2>
+            <div class="contact-icons">
+                <!-- Gmail -->
+                <a class="icon gmail" href="mailto:oa8315980@gmail.com" target="_blank" title="Send Email">
+                    <i class="fas fa-envelope fa-2x"></i>
+                </a>
+                <!-- Telegram -->
+                <a class="icon telegram" href="https://t.me/Oybek9926" target="_blank" title="Open Telegram">
+                    <i class="fab fa-telegram fa-2x"></i>
+                </a>
+            </div>
+            <style>
+            #contact {
+                background: linear-gradient(90deg, #f7fafc 70%, #e9f7f3 100%);
+                border-radius: 18px;
+                box-shadow: 0 4px 24px rgba(16,163,127,0.08);
+                padding: 36px 0 32px 0;
+                margin: 48px auto 0 auto;
+                max-width: 600px;
+                text-align: center;
+                border: 1px solid #ececf1;
+            }
+            #contact h2 {
+                color: #10a37f;
+                font-size: 2rem;
+                margin-bottom: 18px;
+                font-family: 'Segoe UI', 'Arial', sans-serif;
+                letter-spacing: 1px;
+            }
+            .contact-icons {
+                display: flex;
+                justify-content: center;
+                gap: 36px;
+                margin-top: 10px;
+            }
+            .icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background: none;
+                box-shadow: none;
+                font-size: 2.2em;
+                transition: color 0.2s, transform 0.15s;
+                text-decoration: none;
+            }
+            .icon:hover {
+                color: #10a37f;
+                transform: translateY(-4px) scale(1.08);
+            }
+            .icon.gmail {
+                color: #ea4335;
+                background: none;
+                border: none;
+                box-shadow: none;
+            }
+            .icon.gmail:hover {
+                color: #ea4335;
+                background: none;
+                border: none;
+            }
+            .icon.telegram {
+                color: #229ed9;
+                background: transparent;
+                border: 2px solid #229ed9;
+            }
+            .icon.telegram:hover {
+                background: #229ed9;
+                color: #fff;
+                border-color: #229ed9;
+            }
+            </style>
+        </section>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Oybek's Personal Website</p>
+    </footer>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
